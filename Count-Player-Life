@@ -1,0 +1,44 @@
+# Setup tracker UI to show how many life left and connect to end game device
+
+using { /Fortnite.com/Devices }
+using { /Verse.org/Simulation }
+using { /UnrealEngine.com/Temporary/Diagnostics }
+
+# See https://dev.epicgames.com/documentation/en-us/uefn/create-your-own-device-in-verse for how to create a verse device.
+
+# A Verse-authored creative device that can be placed in a level
+Player_Life := class(creative_device):
+
+    @editable
+    Players : tracker_device = tracker_device{}
+    @editable
+    EndDevice : end_game_device = end_game_device{}
+
+    var Dead : int = 0
+    var CountedPlayer : int = 1
+    # Runs when the device is started in a running game
+    OnBegin<override>()<suspends>:void=
+        # TODO: Replace this with your code
+        #Print("{CountedPlayer}")
+
+        loop:
+            if(Dead < CountedPlayer):
+                Sleep(0.1)
+                set CountedPlayer = GetPlayspace().GetPlayers().Length
+                Players.CompleteEvent.Subscribe(TheyDead)
+            else if(Dead = CountedPlayer):
+                Sleep(0.1)
+                set CountedPlayer = GetPlayspace().GetPlayers().Length
+                #Print ("{Dead} = {CountedPlayer}")
+                break
+            
+
+    TheyDead(Agent:agent):void=
+        set Dead += 1
+        #Print ("{Dead} Player(s) dead")
+        CheckEndGame(Agent)
+
+    CheckEndGame(Agent:agent):void=
+        if(Dead>=CountedPlayer):
+            EndDevice.Activate(Agent)
+            #Print("End Please")
