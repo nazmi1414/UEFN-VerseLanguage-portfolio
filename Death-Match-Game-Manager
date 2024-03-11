@@ -1,0 +1,63 @@
+# code for death match game manager
+
+using { /Fortnite.com/Devices }
+using { /Fortnite.com/Teams }
+using { /Fortnite.com/Game }
+using { /Fortnite.com/Characters }
+using { /Verse.org/Simulation }
+using { /UnrealEngine.com/Temporary/Diagnostics }
+
+Game_manager := class(creative_device):
+
+    var PlayerMap : [player]int = map{}
+
+    @editable var WeaponGranters : []item_granter_device = array{}
+    @editable var Sentries : []sentry_device = array{}
+    @editable EndGameDevice : end_game_device = end_game_device{}
+
+    var ElimsToEndGame : int = 0
+
+    OnBegin<override>()<suspends>:void=
+        set ElimsToEndGame = WeaponGranters.Length;
+        InitPlayers()
+        InitTestMode()
+
+    InitPlayers() : void=
+        AllPlayers := GetPlayspace().GetPlayers()
+        for (Player : AllPlayers, FortCharacter := Player.GetFortCharacter[]):
+            if (set PlayerMap[Player] = 0, WeaponTier := PlayerMap[Player]):
+                FortCharacter.EliminatedEvent().Subscribe(OnPlayerEliminated)
+                GrantWeapon(Player, WeaponTier)
+
+    GrantWeapon(Player: player, WeaponTier: int) : void=
+        Print("Attempting to grant weapon")
+        if(ItemGranter := WeaponGranters[WeaponTier]):
+            Print("Granted item to player")
+            ItemGranter.GrantItem(Player)
+
+    OnPlayerEliminated(Result : elimination_result) : void=
+        Eliminator := Result.EliminatingCharacter
+        if(FortCharacter := Eliminator?, EliminatingAgent := FortCharacter.GetAgent[]):
+            Print("We need to promote Player")
+
+    PromotePlayer(Agent : agent) : void=
+        var WeaponTier : int = 0
+        if (Player := player[Agent], PlayerWeaponTier := PlayerMap[Player]):
+            set WeaponTier = PlayerWeaponTier + 1
+            CheckEndGame(Agent,WeaponTier)
+
+        if (Player := player[Agent], set PlayerMap[Player] = WeaponTier):
+            GrantWeapon(Player,WeaponTier)
+
+    InitTestMode(): void=
+        for (Sentry : Sentries):
+            Sentry.EliminatedEvent.Subscribe(TestPlayerElimination)
+
+    TestPlayerElimination(Agent : ?agent) : void=
+        Print("Sentry Eliminated")
+        if (Player := Agent?):
+            PromotePlayer(Player)
+
+    CheckEndGame(Player : agent, WeaponTier : int) : void=
+        if(WeaponTier >= ElimsToEndGame):
+            EndGameDevice.Activate(Player)
