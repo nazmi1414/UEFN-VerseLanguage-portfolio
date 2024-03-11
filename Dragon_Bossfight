@@ -1,0 +1,372 @@
+
+using { /Fortnite.com/Devices }
+using { /Fortnite.com/Characters }
+using { /Verse.org/Simulation }
+using { /Verse.org/Random }
+using { /UnrealEngine.com/Temporary/Diagnostics }
+using { /UnrealEngine.com/Temporary/UI }
+using { /Fortnite.com/UI }
+using { /UnrealEngine.com/Temporary/SpatialMath}
+using { /Verse.org/Colors }
+using { /Verse.org/Colors/NamedColors }
+
+health_bars := class():
+    iTotalHP<private> : float = 20000.0
+    var iCurrentHP<private> : float = 20000.0
+    var iBossName<private> : string = "Draco - Bloody Hot Boss"
+
+    
+    BossBarColorBase<private> : color_block = color_block{
+        DefaultColor := MakeColorFromHex("000000")
+        DefaultDesiredSize := vector2{X:= 1200.0, Y := 40.0}} 
+
+    var BossBarColorTop<private> : color_block = color_block{}  
+    var Overlay<private> : overlay = overlay{}
+        
+    HPBarTitleTextBlock<private> : text_block = text_block{DefaultTextColor := MakeColorFromHex("FFFFFF")}
+
+    HPTitleText<private><localizes>(HPText : string) : message = "{HPText}"
+
+    Init(BossName : string, BossTotalHP: float):void=
+        set iBossName = BossName
+        set iCurrentHP = BossTotalHP
+        HPBarTitleTextBlock.SetText(HPTitleText("{iBossName}: {iCurrentHP}/{iTotalHP}"))
+
+    TakeDamage(DamageAmount : float):void=
+        set iCurrentHP -= DamageAmount
+        if (iCurrentHP < 0.0):
+            set iCurrentHP = 0.0
+ 
+        HealthPercentage := iCurrentHP / iTotalHP
+        BarSize := BossBarColorBase.GetDesiredSize()
+        NewHealthBarWidth := BarSize.X * HealthPercentage
+        if (Current := Int[iCurrentHP], Total := Int[iTotalHP]):
+            HPBarTitleTextBlock.SetText(HPTitleText("{iBossName}: {Current}/{Total}"))
+        
+        UpdateHealthBar(NewHealthBarWidth)
+    
+    Heal(HealAmount : float):void=
+        block:
+
+    ShowUIForPlayer(Player : player):void=
+        if (PlayerUI := GetPlayerUI[Player]):
+            PlayerUI.AddWidget(CreateUI())
+
+    ShowUIToAllPlayers():void=
+        block:
+
+    MyButton : button_device = button_device{}
+
+    UpdateHealthBar(NewWidth : float):void=
+        Overlay.RemoveWidget(HPBarTitleTextBlock)
+        Overlay.RemoveWidget(BossBarColorTop)
+        set BossBarColorTop = CreateTopHealthBar(NewWidth)
+
+        Overlay.AddWidget(CreateOverlaySlot(BossBarColorTop, horizontal_alignment.Left))
+        Overlay.AddWidget(CreateOverlaySlot(HPBarTitleTextBlock,horizontal_alignment.Center))
+        
+    CreateOverlaySlot<private>(TheWidget : widget, HAlignment : horizontal_alignment):overlay_slot=  
+        overlay_slot:
+            Widget := TheWidget 
+            HorizontalAlignment := HAlignment
+
+    CreateTopHealthBar<private>(Width: float):color_block=
+        ColorBlock := color_block{
+            DefaultColor := MakeColorFromHex("b90e0a")
+            DefaultDesiredSize := vector2{X:= Width, Y := 40.0}} 
+        
+        set BossBarColorTop = ColorBlock
+        
+
+    CreateOverlay<private>() : overlay=
+        TheOverlay := overlay:
+            Slots := array:
+                overlay_slot:
+                    Widget := BossBarColorBase
+                overlay_slot:
+                    Widget := CreateTopHealthBar(2000.0)
+                overlay_slot:
+                    Widget := HPBarTitleTextBlock
+        set Overlay = TheOverlay
+
+
+    CreateUI<private>() : canvas=
+        TheCanvas : canvas = canvas:
+            Slots := array:
+                canvas_slot:
+                    Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.9}, Maximum := vector2{X := 0.5, Y := 0.9}}
+                    Offsets := margin{Top := 0.0, Left := 0.0, Right := 0.0, Bottom := 100.0}
+                    Alignment := vector2{X := 0.5, Y := 22.0}
+                    Widget := stack_box:
+                        Orientation := orientation.Vertical
+                        Slots := array:
+                            stack_box_slot:
+                                Widget := CreateOverlay()
+                            
+                                                                
+        return TheCanvas        
+    
+
+
+bossmanager_device := class(creative_device):
+
+    @editable Fire_AttackCinema : cinematic_sequence_device = cinematic_sequence_device{}
+    @editable Claw_AttackCinema : cinematic_sequence_device = cinematic_sequence_device{}
+    @editable Tail_AttackCinema : cinematic_sequence_device = cinematic_sequence_device{}
+    @editable Wing_AttackCinema : cinematic_sequence_device = cinematic_sequence_device{}
+    @editable Lightning_AttackCinema : cinematic_sequence_device = cinematic_sequence_device{}
+    @editable StoneAttackCinema : cinematic_sequence_device = cinematic_sequence_device{}
+    @editable AngryCinema : cinematic_sequence_device = cinematic_sequence_device{}
+    @editable RunCinema : cinematic_sequence_device = cinematic_sequence_device{}
+    @editable FlyCinema : cinematic_sequence_device = cinematic_sequence_device{}
+    @editable SleepCinema : cinematic_sequence_device = cinematic_sequence_device{}
+    @editable BossDeathCinema : cinematic_sequence_device = cinematic_sequence_device{}
+    @editable AwakeCinema : cinematic_sequence_device = cinematic_sequence_device{}
+    @editable RotateCinema : cinematic_sequence_device = cinematic_sequence_device{}
+    @editable FlyToSkyCinema : cinematic_sequence_device = cinematic_sequence_device{}
+    @editable BossManip : prop_manipulator_device = prop_manipulator_device{}
+    @editable Prop : creative_prop = creative_prop{}
+    @editable FPSButton:trigger_device = trigger_device{}
+
+    BossHPBar : health_bars = health_bars{}
+    var Players_fort : []fort_character = array{}
+    var Players : []player = array{}
+    var BossHP : float = 20000.0
+    
+    OnBegin<override>()<suspends>:void=
+        
+        FPSButton.TriggeredEvent.Subscribe(OnInteractedWithButtonFPS) 
+
+        AllPlayers := GetPlayspace().GetPlayers()
+
+        BossManip.DamagedEvent.Subscribe(OnBossDamaged)
+        #Make The Dragon looping sleep until get damage
+        loop:
+            if(Bosshp := BossHP = 20000.0):
+                #GetClosestPlayerToProp(Players, Prop)
+                SleepAnimation()
+            else:
+                break
+
+        #Play the Ground attack
+        AwakeAnimation()
+        loop:
+            if(Bosshp := BossHP > 5000.0):
+                    RotateTowardPlayer()
+                    MoveAnimation()
+                    PlayRandomAttack()
+            else:
+                break
+
+        FlyToSky()
+        loop:
+            if(Bosshp := BossHP > 0.0):
+                    FlyOnSkyRandom01()
+                    RotateOnTowardPlayer()
+                    PlaySkyRandomAttack()
+                    FlyOnSkyRandom02()
+                    RotateOnTowardPlayer()
+                    PlaySkyRandomAttack()
+            else:
+                break
+
+        if(Bosshp := BossHP <= 0.0):
+            BossDeathAnimation()
+
+    OnInteractedWithButtonFPS(Agent : ?agent):void= 
+        AllPlayers := GetPlayspace().GetPlayers()
+        if(FortCharacter := Agent?.GetFortCharacter[]):
+            InitPlayers()
+            BossHPBar.Init("Draco - Bloody Hot Boss", 20000.0)
+            
+        if (Player := AllPlayers[0]):
+            BossHPBar.ShowUIForPlayer(Player)
+
+    DamagedBoss(DamageToBoss : float):void=
+        set BossHP -= DamageToBoss
+
+    #to store how many player
+    InitPlayers():void=
+        set Players = GetPlayspace().GetPlayers()
+            
+    #Add the animation Function Name here.
+    #Plus 1 on the second digit in GetRandomInt and equal them various depend on the number 
+    PlayRandomAttack()<suspends>:void=
+        if (GetRandomInt(0,3) = 0):
+            Fire_AttackAnimation()
+        else if (GetRandomInt(0,3) = 1):
+            Claw_AttackAnimation()
+        else if (GetRandomInt(0,3) = 2):
+            Tail_AttackAnimation()    
+        else:
+            Wing_AttackAnimation()
+
+    PlaySkyRandomAttack()<suspends>:void=
+        if (GetRandomInt(0,1) = 0):
+            Lightning_AttackAnimation()
+        else:
+            Lightning_AttackAnimation()
+            
+    #Here can make it different damage value from the Players
+    OnBossDamaged(Agent : agent):void=
+        BossHPBar.TakeDamage(33.0)
+        DamagedBoss(33.0)
+
+    AwakeAnimation()<suspends>:void=
+        AwakeCinema.Play()
+        Sleep(6.5)
+
+    SleepAnimation()<suspends>:void=
+        SleepCinema.Play()
+        Sleep(1.0)
+
+    #Example to make the animation function.
+    #Fire Attack
+    Fire_AttackAnimation()<suspends>:void=
+        Fire_AttackCinema.Play() #Calling the cinematic device by its declared name in class
+        Sleep(3.8333) #Animation duration
+
+    #Tail attack
+    Tail_AttackAnimation()<suspends>:void=
+        Tail_AttackCinema.Play()
+        Sleep(2.8333)
+
+    #Claw Attack
+    Claw_AttackAnimation()<suspends>:void=
+        Claw_AttackCinema.Play()
+        Sleep(2.1667)
+
+    Wing_AttackAnimation()<suspends>:void=
+        Wing_AttackCinema.Play()
+        Sleep(2.3333)
+
+    Lightning_AttackAnimation()<suspends>:void=
+       Lightning_AttackCinema.Play()
+        Sleep(7.9333)
+
+    StoneAnimation()<suspends>:void=
+        Lightning_AttackCinema.Play()
+        Sleep(7.9333)
+    
+    BossDeathAnimation()<suspends>:void=
+        BossDeathCinema.Play()
+        Sleep(2.0)
+
+    #Dragon Move to Player function
+    MoveAnimation()<suspends>:void=
+        AllPlayers := GetPlayspace().GetPlayers()           
+        if (Player := AllPlayers[0], Agent := agent[Player], Fort := Agent.GetFortCharacter[]):
+
+            BothDistance := Distance(Prop.GetTransform().Translation , Fort.GetTransform().Translation)
+
+            if(BothDistance < 15000.0): 
+                RunCinema.Play()
+                PlayerTran := Fort.GetTransform().Translation
+                PlayerLocation := vector3{X := PlayerTran.X, Y := PlayerTran.Y, Z := 3572.0}
+                Prop.MoveTo(PlayerLocation, Prop.GetTransform().Rotation, 2.5)
+            else:
+                AngryCinema.Play()
+                Sleep(2.4667)
+
+
+    #Dragon Rotate to Player function    
+    RotateTowardPlayer()<suspends>:void=
+        AllPlayers := GetPlayspace().GetPlayers()
+        if (Player := AllPlayers[0], Agent := agent[Player], Fort := Agent.GetFortCharacter[]):
+
+            RunCinema.Play()
+            PropLocation := Prop.GetTransform().Translation
+            PlayerLocation := Fort.GetTransform().Translation
+            BothDistance := Distance(Prop.GetTransform().Translation , Fort.GetTransform().Translation)
+            
+            if(BothDistance < 15000.0):
+                if (LookDirection := (PlayerLocation - PropLocation).MakeUnitVector[]):
+
+                    Yaw := RadiansToDegrees(ArcTan(LookDirection.Y, LookDirection.X)) - 90.0
+                    Pitch := 0.0 #RadiansToDegrees(ArcTan(LookDirection.Z, Sqrt((LookDirection.X * LookDirection.X) + (LookDirection.Y * LookDirection.Y))))
+                    Roll := 0.0
+
+                    NewRotation := MakeRotationFromYawPitchRollDegrees(Yaw, Pitch, Roll)
+
+                    Prop.MoveTo(Prop.GetTransform().Translation, NewRotation, 0.5)
+
+            else if(LookDirection := (PlayerLocation - PropLocation).MakeUnitVector[]):
+
+                Yaw := RadiansToDegrees(ArcTan(LookDirection.Y, LookDirection.X)) - 90.0
+                Pitch := 0.0
+                Roll := 0.0
+
+                OldRotation := MakeRotationFromYawPitchRollDegrees(Yaw, Pitch, Roll)
+
+                Prop.MoveTo(Prop.GetTransform().Translation, OldRotation, 0.0)
+
+
+    FlyToSky()<suspends>:void=
+        FlyToSkyCinema.Play()
+        PropLocation := Prop.GetTransform().Translation
+        NewSkyLocation := vector3{X := -55517.0, Y:= 1248.0, Z := 4500.0}
+
+        if (LookDirection := (NewSkyLocation - PropLocation).MakeUnitVector[]):
+
+            Yaw := RadiansToDegrees(ArcTan(LookDirection.Y, LookDirection.X)) - 90.0
+            Pitch := 0.0 #RadiansToDegrees(ArcTan(LookDirection.Z, Sqrt((LookDirection.X * LookDirection.X) + (LookDirection.Y * LookDirection.Y))))
+            Roll := 0.0
+
+            NewRotation := MakeRotationFromYawPitchRollDegrees(Yaw, Pitch, Roll)
+
+            Prop.MoveTo(NewSkyLocation, NewRotation, 2.7667)
+    
+    FlyOnSkyRandom01()<suspends>:void=
+        FlyCinema.Play()
+        PropLocation := Prop.GetTransform().Translation
+
+        NewXLocation : float = GetRandomFloat(-58121.0 , -53785.0)
+        NewYLocation : float = GetRandomFloat(-1457.0 , 171.0)
+        NewSkyLocation := vector3{X := NewXLocation, Y:= NewYLocation, Z := 4500.0}
+        
+
+        if (LookDirection := (NewSkyLocation - PropLocation).MakeUnitVector[]):
+
+            Yaw := RadiansToDegrees(ArcTan(LookDirection.Y, LookDirection.X)) - 90.0
+            Pitch := 0.0 #RadiansToDegrees(ArcTan(LookDirection.Z, Sqrt((LookDirection.X * LookDirection.X) + (LookDirection.Y * LookDirection.Y))))
+            Roll := 0.0
+
+            NewRotation := MakeRotationFromYawPitchRollDegrees(Yaw, Pitch, Roll)
+
+            Prop.MoveTo(NewSkyLocation, NewRotation, 2.5)
+
+    FlyOnSkyRandom02()<suspends>:void=
+        FlyCinema.Play()
+        PropLocation := Prop.GetTransform().Translation
+
+        NewXLocation : float = GetRandomFloat(-57657.0 , -53561.0)
+        NewYLocation : float = GetRandomFloat(3438.0 , 5006.617714)
+        NewSkyLocation := vector3{X := NewXLocation, Y:= NewYLocation, Z := 4500.0}
+        
+
+        if (LookDirection := (NewSkyLocation - PropLocation).MakeUnitVector[]):
+
+            Yaw := RadiansToDegrees(ArcTan(LookDirection.Y, LookDirection.X)) - 90.0
+            Pitch := 0.0 #RadiansToDegrees(ArcTan(LookDirection.Z, Sqrt((LookDirection.X * LookDirection.X) + (LookDirection.Y * LookDirection.Y))))
+            Roll := 0.0
+
+            NewRotation := MakeRotationFromYawPitchRollDegrees(Yaw, Pitch, Roll)
+
+            Prop.MoveTo(NewSkyLocation, NewRotation, 2.5)
+    RotateOnTowardPlayer()<suspends>:void=
+        RotateCinema.Play()
+        AllPlayers := GetPlayspace().GetPlayers()
+        if (Player := AllPlayers[0], Agent := agent[Player], Fort := Agent.GetFortCharacter[]):
+    
+            PropLocation := Prop.GetTransform().Translation
+            PlayerLocation := Fort.GetTransform().Translation
+
+            if (LookDirection := (PlayerLocation - PropLocation).MakeUnitVector[]):
+
+                Yaw := RadiansToDegrees(ArcTan(LookDirection.Y, LookDirection.X)) - 90.0
+                Pitch := 0.0 #RadiansToDegrees(ArcTan(LookDirection.Z, Sqrt((LookDirection.X * LookDirection.X) + (LookDirection.Y * LookDirection.Y))))
+                Roll := 0.0
+
+                NewRotation := MakeRotationFromYawPitchRollDegrees(Yaw, Pitch, Roll)
+
+                Prop.MoveTo(Prop.GetTransform().Translation, NewRotation, 1.2)
