@@ -1,0 +1,1453 @@
+using { /Fortnite.com/Devices }
+using { /Fortnite.com/Characters }
+using { /Verse.org/Simulation }
+using { /Verse.org/Random }
+using { /UnrealEngine.com/Temporary/Diagnostics }
+using { /UnrealEngine.com/Temporary/UI }
+using { /Fortnite.com/UI }
+using { /UnrealEngine.com/Temporary/SpatialMath}
+using { /Verse.org/Colors }
+using { /Verse.org/Colors/NamedColors }
+
+# See https://dev.epicgames.com/documentation/en-us/uefn/create-your-own-device-in-verse for how to create a verse device
+# A Verse-authored creative device that can be placed in a level
+Santa01 := class(creative_device):
+
+    @editable
+    var Santa1 : creative_prop = creative_prop{}
+    
+
+    var Loc:int = 401
+    var OldLoc:int = 400
+
+    OnBegin<override>()<suspends>:void=
+        # TODO: Replace this with your code
+
+        Sleep(0.1)
+        Coin:int=0
+        loop:
+            if(Coin = 0):
+                SantaMove()
+            else:
+                break
+
+        
+    
+    SantaMove()<suspends>:void=
+        
+        NewRotation := MakeRotationFromYawPitchRollDegrees(0.0, 0.0, 0.0)
+        Loc400 := vector3{X := -256.0, Y := -512.0, Z := 0.0}
+        Loc401 := vector3{X := -256.0, Y := -1024.0, Z := 0.0}
+        Loc402 := vector3{X := -256.0, Y := 768.0, Z := 0.0}
+        Loc500 := vector3{X := -2560.0, Y := 5376.0, Z := 0.0}
+        Loc501 := vector3{X := -2560.0, Y := 3840.0, Z := 0.0}
+        Loc502 := vector3{X := -1024.0, Y := 5376.0, Z := 0.0}
+        Loc503 := vector3{X := -1792.0, Y := 3840.0, Z := 0.0}
+        Loc504 := vector3{X := -1792.0, Y := 4608.0, Z := 0.0}
+        Loc505 := vector3{X := -1024.0, Y := 4608.0, Z := 0.0}
+        Loc506 := vector3{X := -256.0, Y := 4608.0, Z := 0.0}
+        Loc507 := vector3{X := -256.0, Y := 5376.0, Z := 0.0}
+        Loc508 := vector3{X := 512.0, Y := 5376.0, Z := 0.0}
+        Loc509 := vector3{X := 1536.0, Y := 5376.0, Z := 0.0}
+        Loc510 := vector3{X := 2304.0, Y := 5376.0, Z := 0.0}
+        Loc511 := vector3{X := 512.0, Y := 4608.0, Z := 0.0}
+        Loc512 := vector3{X := 1536.0, Y := 4608.0, Z := 0.0}
+        Loc513 := vector3{X := 2304.0, Y := 3840.0, Z := 0.0}
+        Loc514 := vector3{X := 1536.0, Y := 3840.0, Z := 0.0}
+        Loc515 := vector3{X := 768.0, Y := 3840.0, Z := 0.0}
+        Loc516 := vector3{X := 0.0, Y := 3840.0, Z := 0.0}
+        Loc517 := vector3{X := -1024.0, Y := 3840.0, Z := 0.0}
+        Loc518 := vector3{X := -2560.0, Y := 3072.0, Z := 0.0}
+        Loc519 := vector3{X := -768.0, Y := 3072.0, Z := 0.0}
+        Loc520 := vector3{X := 768.0, Y := 3072.0, Z := 0.0}
+        Loc521 := vector3{X := 1536.0, Y := 3072.0, Z := 0.0}
+        Loc522 := vector3{X := 2304.0, Y := 3072.0, Z := 0.0}
+        Loc523 := vector3{X := 1536.0, Y := 2304.0, Z := 0.0}
+        Loc524 := vector3{X := 768.0, Y := 2304.0, Z := 0.0}
+        Loc525 := vector3{X := 0.0, Y := 2304.0, Z := 0.0}
+        Loc526 := vector3{X := -1792.0, Y := 2304.0, Z := 0.0}
+        Loc527 := vector3{X := -2560.0, Y := 1536.0, Z := 0.0}
+        Loc528 := vector3{X := -1792.0, Y := 1536.0, Z := 0.0}
+        Loc529 := vector3{X := -1024.0, Y := 1536.0, Z := 0.0}
+        Loc530 := vector3{X := 0.0, Y := 1536.0, Z := 0.0}
+        Loc531 := vector3{X := 768.0, Y := 1536.0, Z := 0.0}
+        Loc532 := vector3{X := 1536.0, Y := 1792.0, Z := 0.0}
+        Loc533 := vector3{X := 2304.0, Y := 1792.0, Z := 0.0}
+        Loc534 := vector3{X := 1536.0, Y := 256.0, Z := 0.0}
+        Loc535 := vector3{X := 768.0, Y := 256.0, Z := 0.0}
+        Loc536 := vector3{X := -1024.0, Y := 256.0, Z := 0.0}
+        Loc537 := vector3{X := -1792.0, Y := 256.0, Z := 0.0}
+        Loc538 := vector3{X := -1792.0, Y := -512.0, Z := 0.0}
+        Loc539 := vector3{X := -1024.0, Y := -512.0, Z := 0.0}
+        Loc540 := vector3{X := 768.0, Y := -512.0, Z := 0.0}
+        Loc541 := vector3{X := 1536.0, Y := -512.0, Z := 0.0}
+        Loc542 := vector3{X := -1024.0, Y := -1280.0, Z := 0.0}
+        Loc543 := vector3{X := -1792.0, Y := -1536.0, Z := 0.0}
+        Loc544 := vector3{X := -2560.0, Y := -1536.0, Z := 0.0}
+        Loc545 := vector3{X := -1024.0, Y := -1792.0, Z := 0.0}
+        Loc546 := vector3{X := 0.0, Y := -1792.0, Z := 0.0}
+        Loc547 := vector3{X := 768.0, Y := -1792.0, Z := 0.0}
+        Loc548 := vector3{X := 2304.0, Y := -2048.0, Z := 0.0}
+        Loc549 := vector3{X := 1536.0, Y := -2048.0, Z := 0.0}
+        Loc550 := vector3{X := -1792.0, Y := -2560.0, Z := 0.0}
+        Loc551 := vector3{X := -1024.0, Y := -2560.0, Z := 0.0}
+        Loc552 := vector3{X := 0.0, Y := -2560.0, Z := 0.0}
+        Loc553 := vector3{X := 1536.0, Y := -2560.0, Z := 0.0}
+        Loc554 := vector3{X := 2304.0, Y := -2816.0, Z := 0.0}
+        Loc555 := vector3{X := 2304.0, Y := -3328.0, Z := 0.0}
+        Loc556 := vector3{X := 1536.0, Y := -3328.0, Z := 0.0}
+        Loc557 := vector3{X := 768.0, Y := -3328.0, Z := 0.0}
+        Loc558 := vector3{X := -768.0, Y := -3328.0, Z := 0.0}
+        Loc559 := vector3{X := -1024.0, Y := -3328.0, Z := 0.0}
+        Loc560 := vector3{X := -2560.0, Y := -3328.0, Z := 0.0}
+        Loc561 := vector3{X := -2560.0, Y := -4096.0, Z := 0.0}
+        Loc562 := vector3{X := -1536.0, Y := -4096.0, Z := 0.0}
+        Loc563 := vector3{X := -768.0, Y := -4352.0, Z := 0.0}
+        Loc564 := vector3{X := 0.0, Y := -4352.0, Z := 0.0}
+        Loc565 := vector3{X := 768.0, Y := -4352.0, Z := 0.0}
+        Loc566 := vector3{X := 1536.0, Y := -4096.0, Z := 0.0}
+        Loc567 := vector3{X := 2304.0, Y := -4096.0, Z := 0.0}
+        Loc568 := vector3{X := 1536.0, Y := -5120.0, Z := 0.0}
+        Loc569 := vector3{X := 1024.0, Y := -5120.0, Z := 0.0}
+        Loc570 := vector3{X := 256.0, Y := -5120.0, Z := 0.0}
+        Loc571 := vector3{X := -512.0, Y := -5120.0, Z := 0.0}
+        Loc572 := vector3{X := -1536.0, Y := -5120.0, Z := 0.0}
+        Loc573 := vector3{X := -2560.0, Y := -5888.0, Z := 0.0}
+        Loc574 := vector3{X := -1536.0, Y := -5888.0, Z := 0.0}
+        Loc575 := vector3{X := -512.0, Y := -5888.0, Z := 0.0}
+        Loc576 := vector3{X := 256.0, Y := -5888.0, Z := 0.0}
+        Loc577 := vector3{X := 1024.0, Y := -5888.0, Z := 0.0}
+        Loc578 := vector3{X := 2304.0, Y := -5888.0, Z := 0.0}
+
+
+        if(Loc = 500):
+            Sleep(0.5)
+                if(OldLoc = 502):
+                    Santa1.MoveTo(Loc501, NewRotation, 3.0)
+                    set Loc = 501
+                else:
+                    Santa1.MoveTo(Loc502, NewRotation, 3.0)
+                    set Loc = 502
+            set OldLoc = 500
+
+        else if(Loc = 501):
+            Sleep(0.5)
+                if(OldLoc = 503):
+                    Santa1.MoveTo(Loc500, NewRotation, 3.0)
+                    set Loc = 500
+                else:
+                    Santa1.MoveTo(Loc503, NewRotation, 1.5)
+                    set Loc = 503
+            set OldLoc = 501
+
+        else if(Loc = 502):
+            Sleep(0.5)
+                if(OldLoc = 505):
+                    Santa1.MoveTo(Loc500, NewRotation, 3.0)
+                    set Loc = 500
+                else:
+                    Santa1.MoveTo(Loc505, NewRotation, 1.5)
+                    set Loc = 505
+            set OldLoc = 502
+
+        else if(Loc = 503):
+            Sleep(0.5)
+                if(OldLoc = 504):
+                    Santa1.MoveTo(Loc501, NewRotation, 1.5)
+                    set Loc = 501
+                else:
+                    Santa1.MoveTo(Loc504, NewRotation, 1.5)
+                    set Loc = 504
+            set OldLoc = 503
+
+        else if(Loc = 504):
+            Sleep(0.5)
+                if(OldLoc = 505):
+                    Santa1.MoveTo(Loc503, NewRotation, 1.5)
+                    set Loc = 503
+                else:
+                    Santa1.MoveTo(Loc505, NewRotation, 1.5)
+                    set Loc = 505
+            set OldLoc = 504
+
+        else if(Loc = 505):
+                if(OldLoc = 506):
+                    Rand := GetRandomInt(0, 1)
+                        if(Rand = 0):
+                            Sleep(0.5)
+                            Santa1.MoveTo(Loc502, NewRotation, 1.5)
+                            set Loc = 502
+                        else:
+                            Santa1.MoveTo(Loc504, NewRotation, 1.5)
+                            set Loc = 504
+                else if(OldLoc = 502):
+                    Sleep(0.5)
+                    Rand := GetRandomInt(0, 1)
+                        if(Rand = 0):
+                            Santa1.MoveTo(Loc506, NewRotation, 1.5)
+                            set Loc = 506
+                        else:
+                            Santa1.MoveTo(Loc504, NewRotation, 1.5)
+                            set Loc = 504
+                else:
+                    Rand := GetRandomInt(0, 1)
+                        if(Rand = 0):
+                            Sleep(0.5)
+                            Santa1.MoveTo(Loc502, NewRotation, 1.5)
+                            set Loc = 502
+                        else:
+                            Santa1.MoveTo(Loc506, NewRotation, 1.5)
+                            set Loc = 506
+            set OldLoc = 505
+
+        else if(Loc = 506):
+            Sleep(0.5)
+                if(OldLoc = 507):
+                    Santa1.MoveTo(Loc505, NewRotation, 1.5)
+                    set Loc = 505
+                else:
+                    Santa1.MoveTo(Loc507, NewRotation, 1.5)
+                    set Loc = 507
+            set OldLoc = 506
+
+        else if(Loc = 507):
+            Sleep(0.5)
+                if(OldLoc = 508):
+                    Santa1.MoveTo(Loc506, NewRotation, 1.5)
+                    set Loc = 506
+                else:
+                    Santa1.MoveTo(Loc508, NewRotation, 1.5)
+                    set Loc = 508
+            set OldLoc = 507
+
+        else if(Loc = 508):
+            Sleep(0.5)
+                if(OldLoc = 507):
+                    Santa1.MoveTo(Loc511, NewRotation, 1.5)
+                    set Loc = 511
+                else:
+                    Santa1.MoveTo(Loc507, NewRotation, 1.5)
+                    set Loc = 507
+            set OldLoc = 508
+
+        else if(Loc = 511):
+            Sleep(0.5)
+                if(OldLoc = 508):
+                    Santa1.MoveTo(Loc512, NewRotation, 2.0)
+                    set Loc = 512
+                else:
+                    Santa1.MoveTo(Loc508, NewRotation, 1.5)
+                    set Loc = 508
+            set OldLoc = 511
+
+        else if(Loc = 509):
+            Sleep(0.5)
+                if(OldLoc = 512):
+                    Santa1.MoveTo(Loc512, NewRotation, 1.5)
+                    set Loc = 512
+            set OldLoc = 509
+
+        else if(Loc = 512):
+            if(OldLoc = 509):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc511, NewRotation, 2.0)
+                        set Loc = 511
+                    else:
+                        Santa1.MoveTo(Loc514, NewRotation, 1.5)
+                        set Loc = 514
+            else if(OldLoc = 511):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc509, NewRotation, 1.5)
+                        set Loc = 509
+                    else:
+                        Santa1.MoveTo(Loc514, NewRotation, 1.5)
+                        set Loc = 514
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc511, NewRotation, 2.0)
+                        set Loc = 511
+                    else:
+                        Santa1.MoveTo(Loc509, NewRotation, 1.5)
+                        set Loc = 509
+            set OldLoc = 512
+
+        else if(Loc = 514):
+            if(OldLoc = 512):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc513, NewRotation, 1.5)
+                        set Loc = 513
+                    else:
+                        Santa1.MoveTo(Loc521, NewRotation, 1.5)
+                        set Loc = 521
+            else if(OldLoc = 513):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc512, NewRotation, 1.5)
+                        set Loc = 512
+                    else:
+                        Santa1.MoveTo(Loc521, NewRotation, 1.5)
+                        set Loc = 521
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc513, NewRotation, 1.5)
+                        set Loc = 513
+                    else:
+                        Santa1.MoveTo(Loc512, NewRotation, 1.5)
+                        set Loc = 512
+            set OldLoc = 514
+
+        else if(Loc = 513):
+            Sleep(0.5)
+                if(OldLoc = 514):
+                    Santa1.MoveTo(Loc510, NewRotation, 3.0)
+                    set Loc = 510
+                else:
+                    Santa1.MoveTo(Loc514, NewRotation, 1.5)
+                    set Loc = 514
+            set OldLoc = 513
+
+        else if(Loc = 510):
+            Sleep(0.5)
+                if(OldLoc = 513):
+                    Santa1.MoveTo(Loc513, NewRotation, 3.0)
+                    set Loc = 513
+            set OldLoc = 510
+
+        else if(Loc = 521):
+            if(OldLoc = 520):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc514, NewRotation, 1.5)
+                        set Loc = 514
+                    else:
+                        Santa1.MoveTo(Loc522, NewRotation, 1.5)
+                        set Loc = 522
+            else if(OldLoc = 514):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc520, NewRotation, 1.5)
+                        set Loc = 520
+                    else:
+                        Santa1.MoveTo(Loc522, NewRotation, 1.5)
+                        set Loc = 522
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc514, NewRotation, 1.5)
+                        set Loc = 514
+                    else:
+                        Santa1.MoveTo(Loc520, NewRotation, 1.5)
+                        set Loc = 520
+            set OldLoc = 521
+
+        else if(Loc = 522):
+            Sleep(0.5)
+                if(OldLoc = 521):
+                    Santa1.MoveTo(Loc533, NewRotation, 2.5)
+                    set Loc = 533
+                else:
+                    Santa1.MoveTo(Loc521, NewRotation, 1.5)
+                    set Loc = 521
+            set OldLoc = 522
+
+        else if(Loc = 520):
+            Sleep(0.5)
+                if(OldLoc = 521):
+                    Santa1.MoveTo(Loc515, NewRotation, 1.5)
+                    set Loc = 515
+                else:
+                    Santa1.MoveTo(Loc521, NewRotation, 1.5)
+                    set Loc = 521
+            set OldLoc = 520
+
+        else if(Loc = 515):
+            Sleep(0.5)
+                if(OldLoc = 520):
+                    Santa1.MoveTo(Loc516, NewRotation, 1.5)
+                    set Loc = 516
+                else:
+                    Santa1.MoveTo(Loc520, NewRotation, 1.5)
+                    set Loc = 520
+            set OldLoc = 515
+
+        else if(Loc = 516):
+            if(OldLoc = 515):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc525, NewRotation, 3.0)
+                        set Loc = 525
+                    else:
+                        Santa1.MoveTo(Loc517, NewRotation, 2.0)
+                        set Loc = 517
+            else if(OldLoc = 525):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc517, NewRotation, 2.0)
+                        set Loc = 517
+                    else:
+                        Santa1.MoveTo(Loc515, NewRotation, 1.5)
+                        set Loc = 515
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc525, NewRotation, 3.0)
+                        set Loc = 525
+                    else:
+                        Santa1.MoveTo(Loc515, NewRotation, 1.5)
+                        set Loc = 515
+            set OldLoc = 516
+
+        else if(Loc = 517):
+            Sleep(0.5)
+                if(OldLoc = 516):
+                    Santa1.MoveTo(Loc516, NewRotation, 2.0)
+                    set Loc = 516
+            set OldLoc = 517
+
+        else if(Loc = 533):
+            if(OldLoc = 522):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc532, NewRotation, 1.5)
+                        set Loc = 532
+                    else:
+                        Santa1.MoveTo(Loc548, NewRotation, 7.5)
+                        set Loc = 548
+            else if(OldLoc = 532):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc522, NewRotation, 2.5)
+                        set Loc = 522
+                    else:
+                        Santa1.MoveTo(Loc548, NewRotation, 7.5)
+                        set Loc = 548
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc532, NewRotation, 1.5)
+                        set Loc = 532
+                    else:
+                        Santa1.MoveTo(Loc522, NewRotation, 2.5)
+                        set Loc = 522
+            set OldLoc = 533
+
+        else if(Loc = 532):
+            if(OldLoc = 523):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc533, NewRotation, 1.5)
+                        set Loc = 533
+                    else:
+                        Santa1.MoveTo(Loc534, NewRotation, 3.0)
+                        set Loc = 534
+            else if(OldLoc = 533):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc523, NewRotation, 1.0)
+                        set Loc = 523
+                    else:
+                        Santa1.MoveTo(Loc534, NewRotation, 3.0)
+                        set Loc = 534
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc533, NewRotation, 1.5)
+                        set Loc = 533
+                    else:
+                        Santa1.MoveTo(Loc523, NewRotation, 1.0)
+                        set Loc = 523
+            set OldLoc = 532
+
+        else if(Loc = 523):
+            Sleep(0.5)
+                if(OldLoc = 532):
+                    Santa1.MoveTo(Loc524, NewRotation, 1.5)
+                    set Loc = 524
+                else:
+                    Santa1.MoveTo(Loc532, NewRotation, 1.0)
+                    set Loc = 532
+            set OldLoc = 523
+
+        else if(Loc = 524):
+            Sleep(0.5)
+                if(OldLoc = 523):
+                    Santa1.MoveTo(Loc523, NewRotation, 1.5)
+                    set Loc = 523
+            set OldLoc = 524
+
+        else if(Loc = 534):
+            Sleep(0.5)
+                if(OldLoc = 532):
+                    Santa1.MoveTo(Loc535, NewRotation, 1.5)
+                    set Loc = 535
+                else:
+                    Santa1.MoveTo(Loc532, NewRotation, 3.0)
+                    set Loc = 532
+            set OldLoc = 534
+
+        else if(Loc = 535):
+            Sleep(0.5)
+                if(OldLoc = 534):
+                    Santa1.MoveTo(Loc531, NewRotation, 2.5)
+                    set Loc = 531
+                else:
+                    Santa1.MoveTo(Loc534, NewRotation, 1.5)
+                    set Loc = 534
+            set OldLoc = 535
+
+        else if(Loc = 531):
+            Sleep(0.5)
+                if(OldLoc = 535):
+                    Santa1.MoveTo(Loc530, NewRotation, 1.5)
+                    set Loc = 530
+                else:
+                    Santa1.MoveTo(Loc535, NewRotation, 2.5)
+                    set Loc = 535
+            set OldLoc = 531
+
+        else if(Loc = 530):
+            if(OldLoc = 531):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc525, NewRotation, 1.5)
+                        set Loc = 525
+                    else:
+                        Santa1.MoveTo(Loc529, NewRotation, 2.0)
+                        set Loc = 529
+            else if(OldLoc = 525):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc531, NewRotation, 1.5)
+                        set Loc = 531
+                    else:
+                        Santa1.MoveTo(Loc529, NewRotation, 2.0)
+                        set Loc = 529
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc525, NewRotation, 1.5)
+                        set Loc = 525
+                    else:
+                        Santa1.MoveTo(Loc531, NewRotation, 1.5)
+                        set Loc = 531
+            set OldLoc = 530
+
+        else if(Loc = 525):
+            if(OldLoc = 530):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc526, NewRotation, 3.5)
+                        set Loc = 526
+                    else:
+                        Santa1.MoveTo(Loc516, NewRotation, 3.0)
+                        set Loc = 516
+            else if(OldLoc = 526):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc530, NewRotation, 1.5)
+                        set Loc = 530
+                    else:
+                        Santa1.MoveTo(Loc516, NewRotation, 3.0)
+                        set Loc = 516
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc526, NewRotation, 3.5)
+                        set Loc = 526
+                    else:
+                        Santa1.MoveTo(Loc530, NewRotation, 1.5)
+                        set Loc = 530
+            set OldLoc = 525
+
+        else if(Loc = 526):
+            Sleep(0.5)
+                if(OldLoc = 525):
+                    Santa1.MoveTo(Loc528, NewRotation, 1.5)
+                    set Loc = 528
+                else:
+                    Santa1.MoveTo(Loc525, NewRotation, 3.5)
+                    set Loc = 525
+            set OldLoc = 526
+
+        else if(Loc = 528):
+            if(OldLoc = 526):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc527, NewRotation, 1.5)
+                        set Loc = 527
+                    else:
+                        Santa1.MoveTo(Loc537, NewRotation, 2.5)
+                        set Loc = 537
+            else if(OldLoc = 527):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc526, NewRotation, 1.5)
+                        set Loc = 526
+                    else:
+                        Santa1.MoveTo(Loc537, NewRotation, 2.5)
+                        set Loc = 537
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc527, NewRotation, 1.5)
+                        set Loc = 527
+                    else:
+                        Santa1.MoveTo(Loc526, NewRotation, 1.5)
+                        set Loc = 526
+            set OldLoc = 528
+
+        else if(Loc = 527):
+            if(OldLoc = 518):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc528, NewRotation, 1.5)
+                        set Loc = 528
+                    else:
+                        Santa1.MoveTo(Loc544, NewRotation, 6.0)
+                        set Loc = 544
+            else if(OldLoc = 528):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc518, NewRotation, 3.0)
+                        set Loc = 518
+                    else:
+                        Santa1.MoveTo(Loc544, NewRotation, 6.0)
+                        set Loc = 544
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc528, NewRotation, 1.5)
+                        set Loc = 528
+                    else:
+                        Santa1.MoveTo(Loc518, NewRotation, 3.0)
+                        set Loc = 518
+            set OldLoc = 527
+
+        else if(Loc = 518):
+            Sleep(0.5)
+                if(OldLoc = 527):
+                    Santa1.MoveTo(Loc519, NewRotation, 3.5)
+                    set Loc = 519
+                else:
+                    Santa1.MoveTo(Loc527, NewRotation, 3.0)
+                    set Loc = 527
+            set OldLoc = 518
+
+        else if(Loc = 519):
+            Sleep(0.5)
+                if(OldLoc = 518):
+                    Santa1.MoveTo(Loc518, NewRotation, 3.5)
+                    set Loc = 518
+            set OldLoc = 519
+
+        else if(Loc = 537):
+            Sleep(0.5)
+                if(OldLoc = 528):
+                    Santa1.MoveTo(Loc536, NewRotation, 1.5)
+                    set Loc = 536
+                else:
+                    Santa1.MoveTo(Loc528, NewRotation, 2.5)
+                    set Loc = 528
+            set OldLoc = 537
+
+        else if(Loc = 529):
+            Sleep(0.5)
+                if(OldLoc = 530):
+                    Santa1.MoveTo(Loc536, NewRotation, 2.5)
+                    set Loc = 536
+                else:
+                    Santa1.MoveTo(Loc530, NewRotation, 2.0)
+                    set Loc = 530
+            set OldLoc = 529
+
+        else if(Loc = 536):
+            if(OldLoc = 529):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc537, NewRotation, 1.5)
+                        set Loc = 537
+                    else:
+                        Santa1.MoveTo(Loc539, NewRotation, 1.5)
+                        set Loc = 539
+            else if(OldLoc = 537):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc529, NewRotation, 2.5)
+                        set Loc = 529
+                    else:
+                        Santa1.MoveTo(Loc539, NewRotation, 1.5)
+                        set Loc = 539
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc537, NewRotation, 1.5)
+                        set Loc = 537
+                    else:
+                        Santa1.MoveTo(Loc529, NewRotation, 2.5)
+                        set Loc = 529
+            set OldLoc = 536
+
+        else if(Loc = 538):
+            Sleep(0.5)
+                if(OldLoc = 539):
+                    Santa1.MoveTo(Loc543, NewRotation, 2.0)
+                    set Loc = 543
+                else:
+                    Santa1.MoveTo(Loc539, NewRotation, 1.5)
+                    set Loc = 539
+            set OldLoc = 538
+
+        else if(Loc = 541):
+            Sleep(0.5)
+                if(OldLoc = 540):
+                    Santa1.MoveTo(Loc549, NewRotation, 3.0)
+                    set Loc = 549
+                else:
+                    Santa1.MoveTo(Loc540, NewRotation, 1.5)
+                    set Loc = 540
+            set OldLoc = 541
+
+        else if(Loc = 540):
+            Sleep(0.5)
+                if(OldLoc = 541):
+                    Santa1.MoveTo(Loc547, NewRotation, 2.5)
+                    set Loc = 547
+                else:
+                    Santa1.MoveTo(Loc541, NewRotation, 1.5)
+                    set Loc = 541
+            set OldLoc = 540
+
+        else if(Loc = 547):
+            Sleep(0.5)
+                if(OldLoc = 540):
+                    Santa1.MoveTo(Loc546, NewRotation, 1.5)
+                    set Loc = 546
+                else:
+                    Santa1.MoveTo(Loc540, NewRotation, 2.5)
+                    set Loc = 540
+            set OldLoc = 547
+
+        else if(Loc = 553):
+            Sleep(0.5)
+                if(OldLoc = 549):
+                    Santa1.MoveTo(Loc552, NewRotation, 3.0)
+                    set Loc = 552
+                else:
+                    Santa1.MoveTo(Loc549, NewRotation, 1.0)
+                    set Loc = 549
+            set OldLoc = 553
+
+        else if(Loc = 549):
+            if(OldLoc = 541):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc548, NewRotation, 1.5)
+                        set Loc = 548
+                    else:
+                        Santa1.MoveTo(Loc553, NewRotation, 1.0)
+                        set Loc = 553
+            else if(OldLoc = 548):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc541, NewRotation, 3.0)
+                        set Loc = 541
+                    else:
+                        Santa1.MoveTo(Loc553, NewRotation, 1.0)
+                        set Loc = 553
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc548, NewRotation, 1.5)
+                        set Loc = 548
+                    else:
+                        Santa1.MoveTo(Loc541, NewRotation, 3.0)
+                        set Loc = 541
+            set OldLoc = 549
+
+        else if(Loc = 548):
+            Sleep(0.5)
+                if(OldLoc = 533):
+                    Santa1.MoveTo(Loc549, NewRotation, 1.5)
+                    set Loc = 549
+                else:
+                    Santa1.MoveTo(Loc533, NewRotation, 7.5)
+                    set Loc = 533
+            set OldLoc = 548
+
+        else if(Loc = 546):
+            if(OldLoc = 547):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc552, NewRotation, 1.5)
+                        set Loc = 552
+                    else:
+                        Santa1.MoveTo(Loc545, NewRotation, 2.0)
+                        set Loc = 545
+            else if(OldLoc = 552):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc547, NewRotation, 1.5)
+                        set Loc = 547
+                    else:
+                        Santa1.MoveTo(Loc545, NewRotation, 2.0)
+                        set Loc = 545
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc552, NewRotation, 1.5)
+                        set Loc = 552
+                    else:
+                        Santa1.MoveTo(Loc547, NewRotation, 1.5)
+                        set Loc = 547
+            set OldLoc = 546
+
+        else if(Loc = 545):
+            Sleep(0.5)
+                if(OldLoc = 546):
+                    Santa1.MoveTo(Loc542, NewRotation, 1.0)
+                    set Loc = 542
+                else:
+                    Santa1.MoveTo(Loc546, NewRotation, 2.0)
+                    set Loc = 546
+            set OldLoc = 545
+            
+        else if(Loc = 542):
+            Sleep(0.5)
+                if(OldLoc = 545):
+                    Santa1.MoveTo(Loc545, NewRotation, 1.0)
+                    set Loc = 545
+            set OldLoc = 542
+
+        else if(Loc = 544):
+            if(OldLoc = 527):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc543, NewRotation, 1.5)
+                        set Loc = 543
+                    else:
+                        Santa1.MoveTo(Loc560, NewRotation, 3.5)
+                        set Loc = 560
+            else if(OldLoc = 543):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc527, NewRotation, 6.0)
+                        set Loc = 527
+                    else:
+                        Santa1.MoveTo(Loc560, NewRotation, 3.5)
+                        set Loc = 560
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc543, NewRotation, 1.5)
+                        set Loc = 543
+                    else:
+                        Santa1.MoveTo(Loc527, NewRotation, 6.0)
+                        set Loc = 527
+            set OldLoc = 544
+
+        else if(Loc = 543):
+            if(OldLoc = 538):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc544, NewRotation, 1.5)
+                        set Loc = 544
+                    else:
+                        Santa1.MoveTo(Loc550, NewRotation, 2.0)
+                        set Loc = 550
+            else if(OldLoc = 544):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc538, NewRotation, 2.0)
+                        set Loc = 538
+                    else:
+                        Santa1.MoveTo(Loc550, NewRotation, 2.0)
+                        set Loc = 550
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc544, NewRotation, 1.5)
+                        set Loc = 544
+                    else:
+                        Santa1.MoveTo(Loc538, NewRotation, 2.0)
+                        set Loc = 538
+            set OldLoc = 543
+
+        else if(Loc = 560):
+            Sleep(0.5)
+                if(OldLoc = 544):
+                    Santa1.MoveTo(Loc559, NewRotation, 3.0)
+                    set Loc = 559
+                else:
+                    Santa1.MoveTo(Loc544, NewRotation, 3.5)
+                    set Loc = 544
+            set OldLoc = 560
+
+        else if(Loc = 550):
+            Sleep(0.5)
+                if(OldLoc = 543):
+                    Santa1.MoveTo(Loc551, NewRotation, 1.5)
+                    set Loc = 551
+                else:
+                    Santa1.MoveTo(Loc543, NewRotation, 2.0)
+                    set Loc = 543
+            set OldLoc = 550
+
+        else if(Loc = 551):
+            if(OldLoc = 550):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc559, NewRotation, 1.5)
+                        set Loc = 559
+                    else:
+                        Santa1.MoveTo(Loc552, NewRotation, 2.0)
+                        set Loc = 552
+            else if(OldLoc = 559):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc550, NewRotation, 1.5)
+                        set Loc = 550
+                    else:
+                        Santa1.MoveTo(Loc552, NewRotation, 2.0)
+                        set Loc = 552
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc559, NewRotation, 1.5)
+                        set Loc = 559
+                    else:
+                        Santa1.MoveTo(Loc550, NewRotation, 1.5)
+                        set Loc = 550
+            set OldLoc = 551
+
+        else if(Loc = 559):
+            if(OldLoc = 560):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc551, NewRotation, 1.5)
+                        set Loc = 551
+                    else:
+                        Santa1.MoveTo(Loc558, NewRotation, 0.5)
+                        set Loc = 558
+            else if(OldLoc = 551):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc560, NewRotation, 3.0)
+                        set Loc = 560
+                    else:
+                        Santa1.MoveTo(Loc558, NewRotation, 0.5)
+                        set Loc = 558
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc551, NewRotation, 1.5)
+                        set Loc = 551
+                    else:
+                        Santa1.MoveTo(Loc560, NewRotation, 3.0)
+                        set Loc = 560
+            set OldLoc = 559
+
+        else if(Loc = 558):
+            Sleep(0.5)
+                if(OldLoc = 563):
+                    Santa1.MoveTo(Loc559, NewRotation, 0.5)
+                    set Loc = 559
+                else:
+                    Santa1.MoveTo(Loc563, NewRotation, 2.0)
+                    set Loc = 563
+            set OldLoc = 558
+
+        else if(Loc = 563):
+            Sleep(0.5)
+                if(OldLoc = 564):
+                    Santa1.MoveTo(Loc558, NewRotation, 2.0)
+                    set Loc = 558
+                else:
+                    Santa1.MoveTo(Loc564, NewRotation, 1.5)
+                    set Loc = 564
+            set OldLoc = 563
+
+        else if(Loc = 564):
+            if(OldLoc = 563):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc552, NewRotation, 3.5)
+                        set Loc = 552
+                    else:
+                        Santa1.MoveTo(Loc565, NewRotation, 1.5)
+                        set Loc = 565
+            else if(OldLoc = 552):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc563, NewRotation, 1.5)
+                        set Loc = 563
+                    else:
+                        Santa1.MoveTo(Loc565, NewRotation, 1.5)
+                        set Loc = 565
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc552, NewRotation, 3.5)
+                        set Loc = 552
+                    else:
+                        Santa1.MoveTo(Loc563, NewRotation, 1.5)
+                        set Loc = 563
+            set OldLoc = 564
+
+        else if(Loc = 565):
+            Sleep(0.5)
+                if(OldLoc = 564):
+                    Santa1.MoveTo(Loc557, NewRotation, 2.0)
+                    set Loc = 557
+                else:
+                    Santa1.MoveTo(Loc564, NewRotation, 1.5)
+                    set Loc = 564
+            set OldLoc = 565
+
+        else if(Loc = 557):
+            Sleep(0.5)
+                if(OldLoc = 565):
+                    Santa1.MoveTo(Loc556, NewRotation, 1.5)
+                    set Loc = 556
+                else:
+                    Santa1.MoveTo(Loc565, NewRotation, 2.0)
+                    set Loc = 565
+            set OldLoc = 557
+
+        else if(Loc = 556):
+            if(OldLoc = 557):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc566, NewRotation, 1.5)
+                        set Loc = 566
+                    else:
+                        Santa1.MoveTo(Loc555, NewRotation, 1.5)
+                        set Loc = 555
+            else if(OldLoc = 566):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc557, NewRotation, 1.5)
+                        set Loc = 557
+                    else:
+                        Santa1.MoveTo(Loc555, NewRotation, 1.5)
+                        set Loc = 555
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc566, NewRotation, 1.5)
+                        set Loc = 566
+                    else:
+                        Santa1.MoveTo(Loc557, NewRotation, 1.5)
+                        set Loc = 557
+            set OldLoc = 556
+    
+        else if(Loc = 566):
+            if(OldLoc = 556):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc567, NewRotation, 1.5)
+                        set Loc = 567
+                    else:
+                        Santa1.MoveTo(Loc568, NewRotation, 2.0)
+                        set Loc = 568
+            else if(OldLoc = 567):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc556, NewRotation, 1.5)
+                        set Loc = 556
+                    else:
+                        Santa1.MoveTo(Loc568, NewRotation, 2.0)
+                        set Loc = 568
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc567, NewRotation, 1.5)
+                        set Loc = 567
+                    else:
+                        Santa1.MoveTo(Loc556, NewRotation, 1.5)
+                        set Loc = 556
+            set OldLoc = 566
+
+        else if(Loc = 555):
+            Sleep(0.5)
+                if(OldLoc = 556):
+                    Santa1.MoveTo(Loc554, NewRotation, 1.0)
+                    set Loc = 554
+                else:
+                    Santa1.MoveTo(Loc556, NewRotation, 1.5)
+                    set Loc = 556
+            set OldLoc = 555
+
+        else if(Loc = 554):
+            Sleep(0.5)
+                if(OldLoc = 555):
+                    Santa1.MoveTo(Loc555, NewRotation, 1.0)
+                    set Loc = 555
+            set OldLoc = 554
+
+        else if(Loc = 567):
+            Sleep(0.5)
+                if(OldLoc = 566):
+                    Santa1.MoveTo(Loc578, NewRotation, 3.5)
+                    set Loc = 578
+                else:
+                    Santa1.MoveTo(Loc566, NewRotation, 1.5)
+                    set Loc = 566
+            set OldLoc = 567
+
+        else if(Loc = 578):
+            Sleep(0.5)
+                if(OldLoc = 567):
+                    Santa1.MoveTo(Loc577, NewRotation, 2.5)
+                    set Loc = 577
+                else:
+                    Santa1.MoveTo(Loc567, NewRotation, 3.5)
+                    set Loc = 567
+            set OldLoc = 578
+
+        else if(Loc = 568):
+            Sleep(0.5)
+                if(OldLoc = 566):
+                    Santa1.MoveTo(Loc569, NewRotation, 1.0)
+                    set Loc = 569
+                else:
+                    Santa1.MoveTo(Loc566, NewRotation, 2.0)
+                    set Loc = 566
+            set OldLoc = 568
+
+        else if(Loc = 577):
+            Sleep(0.5)
+                if(OldLoc = 578):
+                    Santa1.MoveTo(Loc569, NewRotation, 1.5)
+                    set Loc = 569
+                else:
+                    Santa1.MoveTo(Loc578, NewRotation, 2.5)
+                    set Loc = 578
+            set OldLoc = 577
+
+        else if(Loc = 569):
+            if(OldLoc = 568):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc577, NewRotation, 1.5)
+                        set Loc = 577
+                    else:
+                        Santa1.MoveTo(Loc570, NewRotation, 1.5)
+                        set Loc = 570
+            else if(OldLoc = 577):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc570, NewRotation, 1.5)
+                        set Loc = 570
+                    else:
+                        Santa1.MoveTo(Loc568, NewRotation, 1.0)
+                        set Loc = 568
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc577, NewRotation, 1.5)
+                        set Loc = 577
+                    else:
+                        Santa1.MoveTo(Loc568, NewRotation, 1.0)
+                        set Loc = 568
+            set OldLoc = 569
+
+        else if(Loc = 570):
+            Sleep(0.5)
+                if(OldLoc = 576):
+                    Santa1.MoveTo(Loc569, NewRotation, 1.5)
+                    set Loc = 569
+                else:
+                    Santa1.MoveTo(Loc576, NewRotation, 1.5)
+                    set Loc = 576
+            set OldLoc = 570
+
+        else if(Loc = 576):
+            Sleep(0.5)
+                if(OldLoc = 570):
+                    Santa1.MoveTo(Loc575, NewRotation, 1.5)
+                    set Loc = 575
+                else:
+                    Santa1.MoveTo(Loc570, NewRotation, 1.5)
+                    set Loc = 570
+            set OldLoc = 576
+
+        else if(Loc = 575):
+            Sleep(0.5)
+                if(OldLoc = 571):
+                    Santa1.MoveTo(Loc576, NewRotation, 1.5)
+                    set Loc = 576
+                else:
+                    Santa1.MoveTo(Loc571, NewRotation, 1.5)
+                    set Loc = 571
+            set OldLoc = 575
+
+        else if(Loc = 571):
+            Sleep(0.5)
+                if(OldLoc = 575):
+                    Santa1.MoveTo(Loc572, NewRotation, 2.0)
+                    set Loc = 572
+                else:
+                    Santa1.MoveTo(Loc575, NewRotation, 1.5)
+                    set Loc = 575
+            set OldLoc = 571
+
+        else if(Loc = 572):
+            if(OldLoc = 574):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc571, NewRotation, 2.0)
+                        set Loc = 571
+                    else:
+                        Santa1.MoveTo(Loc562, NewRotation, 2.0)
+                        set Loc = 562
+            else if(OldLoc = 571):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc574, NewRotation, 1.5)
+                        set Loc = 574
+                    else:
+                        Santa1.MoveTo(Loc562, NewRotation, 2.0)
+                        set Loc = 562
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc571, NewRotation, 2.0)
+                        set Loc = 571
+                    else:
+                        Santa1.MoveTo(Loc574, NewRotation, 1.5)
+                        set Loc = 574
+            set OldLoc = 572
+
+        else if(Loc = 562):
+            Sleep(0.5)
+                if(OldLoc = 572):
+                    Santa1.MoveTo(Loc561, NewRotation, 2.0)
+                    set Loc = 561
+                else:
+                    Santa1.MoveTo(Loc572, NewRotation, 2.0)
+                    set Loc = 572
+            set OldLoc = 562
+
+        else if(Loc = 574):
+            Sleep(0.5)
+                if(OldLoc = 572):
+                    Santa1.MoveTo(Loc572, NewRotation, 1.5)
+                    set Loc = 572
+            set OldLoc = 574
+
+        else if(Loc = 561):
+            Sleep(0.5)
+                if(OldLoc = 562):
+                    Santa1.MoveTo(Loc573, NewRotation, 3.5)
+                    set Loc = 573
+                else:
+                    Santa1.MoveTo(Loc562, NewRotation, 2.0)
+                    set Loc = 562
+            set OldLoc = 561
+
+        else if(Loc = 573):
+            Sleep(0.5)
+                if(OldLoc = 561):
+                    Santa1.MoveTo(Loc561, NewRotation, 3.5)
+                    set Loc = 561
+            set OldLoc = 573
+
+        else if(Loc = 552):
+            if(OldLoc = 546):
+                Rand := GetRandomInt(0, 2)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc553, NewRotation, 3.0)
+                        set Loc = 553
+                    else if(Rand = 1):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc551, NewRotation, 2.0)
+                        set Loc = 551
+                    else:
+                        Santa1.MoveTo(Loc564, NewRotation, 3.5)
+                        set Loc = 564
+            else if(OldLoc = 553):
+                Rand := GetRandomInt(0, 2)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc546, NewRotation, 1.5)
+                        set Loc = 546
+                    else if(Rand = 1):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc564, NewRotation, 3.5)
+                        set Loc = 564
+                    else:
+                        Santa1.MoveTo(Loc551, NewRotation, 2.0)
+                        set Loc = 551
+            else if(OldLoc = 551):
+                Rand := GetRandomInt(0, 2)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc546, NewRotation, 1.5)
+                        set Loc = 546
+                    else if(Rand = 1):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc564, NewRotation, 3.5)
+                        set Loc = 564
+                    else:
+                        Santa1.MoveTo(Loc553, NewRotation, 3.0)
+                        set Loc = 553
+            else:
+                Rand := GetRandomInt(0, 2)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc551, NewRotation, 2.0)
+                        set Loc = 551
+                    else if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc553, NewRotation, 3.0)
+                        set Loc = 553
+                    else:
+                        Santa1.MoveTo(Loc546, NewRotation, 1.5)
+                        set Loc = 546
+            set OldLoc = 552
+
+        else if(Loc = 539):
+            if(OldLoc = 538):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc536, NewRotation, 1.5)
+                        set Loc = 536
+                    else:
+                        Santa1.MoveTo(Loc400, NewRotation, 1.5)
+                        set Loc = 400
+            else if(OldLoc = 536):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc538, NewRotation, 1.5)
+                        set Loc = 538
+                    else:
+                        Santa1.MoveTo(Loc400, NewRotation, 1.5)
+                        set Loc = 400
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc536, NewRotation, 1.5)
+                        set Loc = 536
+                    else:
+                        Santa1.MoveTo(Loc538, NewRotation, 1.5)
+                        set Loc = 538
+            set OldLoc = 539
+
+        else if(Loc = 400):
+            if(OldLoc = 401):
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc539, NewRotation, 1.5)
+                        set Loc = 539
+                    else:
+                        Santa1.MoveTo(Loc402, NewRotation, 2.5)
+                        set Loc = 402
+            else if(OldLoc = 539):
+                Sleep(0.5)
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Santa1.MoveTo(Loc401, NewRotation, 1.0)
+                        set Loc = 401
+                    else:
+                        Santa1.MoveTo(Loc402, NewRotation, 2.5)
+                        set Loc = 402
+            else:
+                Rand := GetRandomInt(0, 1)
+                    if(Rand = 0):
+                        Sleep(0.5)
+                        Santa1.MoveTo(Loc539, NewRotation, 1.5)
+                        set Loc = 539
+                    else:
+                        Santa1.MoveTo(Loc401, NewRotation, 1.0)
+                        set Loc = 401
+            set OldLoc = 400
+
+        else if(Loc = 401):
+            Sleep(0.5)
+                if(OldLoc = 400):
+                    Santa1.MoveTo(Loc400, NewRotation, 1.0)
+                    set Loc = 400
+            set OldLoc = 401
+
+        else if(Loc = 402):
+            Sleep(0.5)
+                if(OldLoc = 400):
+                    Santa1.MoveTo(Loc400, NewRotation, 2.5)
+                    set Loc = 400
+            set OldLoc = 402
